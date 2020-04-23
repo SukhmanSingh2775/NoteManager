@@ -26,6 +26,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordTxtField: UITextField!
     
     let userDefaults = UserDefaults.standard
+    var documentId = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,13 +110,18 @@ class SignUpViewController: UIViewController {
                     
                     let db = Firestore.firestore()
                     
-                    db.collection("users").addDocument(data: ["firstname": firstname!, "lastname": lastname!, "uid": result!.user.uid]) { (err) in
-                        if err != nil{
-                            // Error
-                        }
-                    }
+//                    let profileDocument =  db.collection("users").document()
+//                    profileDocument.setData(["firstname": firstname!, "lastname": lastname!, "uid": result!.user.uid, "userTasks": [""], "email": email!])
                     
-                    db.collection("users")
+                    let profileDocument = db.collection("users").document(Auth.auth().currentUser!.uid)
+                    profileDocument.setData(["firstname": firstname!, "lastname": lastname!, "uid": result!.user.uid, "userTasks": [""], "email": email!])
+//                    self.documentId = profileDocument.documentID
+//                    let classId = Document()
+//                    classId.documentId = self.documentId
+//                    print("Document id in SignUp = \(self.documentId)")
+//
+                    
+                    
                 }
             }
         }
@@ -126,5 +132,6 @@ class SignUpViewController: UIViewController {
         errorLbl.text = message
         errorLbl.alpha = 1
     }
+    
         
 }

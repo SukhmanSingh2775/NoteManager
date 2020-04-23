@@ -15,27 +15,30 @@ class VerifyViewController: UIViewController {
     
     @IBOutlet var instructLbl: UILabel!
     
+    
+    
     @IBOutlet weak var verifyBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Utilities.styleHollowButton(verifyBtn)
+    
         
     }
 
     @IBAction func verifyBtnPressed(_ sender: Any)
     {
-        
+
         Auth.auth().currentUser?.reload(completion: { (err) in
                 if err != nil{
-                    print("Err reloading the user")
+
                 }
                 else{
-                    print("Succes reloading the user")
+
                 }
             })
-    
+
             _ = Auth.auth().addStateDidChangeListener { (auth, user) in
                 if  user?.isEmailVerified == true{
                     self.instructLbl.text = "Verified email"
@@ -46,7 +49,7 @@ class VerifyViewController: UIViewController {
     }
     
     func transitionToHome(){
-        let homeViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.HomeViewController) as? HomePageViewController
+        let homeViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.HomeViewController) as? HomeViewController
         view.window?.rootViewController = homeViewController
         view.window?.makeKeyAndVisible()
     }

@@ -46,7 +46,7 @@ class WelcomeViewController: UIViewController {
     @IBAction func LoginBtnPressed(_ sender: Any){}
     
     func transitionToHome(){
-        let homeViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.HomeViewController) as? HomePageViewController
+        let homeViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.HomeViewController) as? HomeViewController
         view.window?.rootViewController = homeViewController
         view.window?.makeKeyAndVisible()
     }
